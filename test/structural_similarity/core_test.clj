@@ -4,7 +4,7 @@
             [structural-similarity.core :refer :all]
             [structural-similarity.dataset :as dataset]))
 
-(def *algorithms* [:tree-edit-distance])
+(def *algorithms* (keys *algorithms-functions-similarity*))
 
 (defn initialize
   []
