@@ -30,10 +30,11 @@
                (map
                 (fn [algorithm]
                   (let [computed (similar? doc1 doc2 algorithm)]
-                   (println :link1    l1
-                            :link2    l2
-                            :true-sim truth
-                            :computed computed)
+                    (println :algorithm algorithm)
+                    (println :link1 l1)
+                    (println :link2 l2)
+                    (println :expected truth)
+                    (println :computed computed)
                    (is (= truth computed))))
                 *algorithms*)))
            (map vector links corpus))))))))
