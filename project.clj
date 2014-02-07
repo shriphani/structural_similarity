@@ -5,4 +5,5 @@
             :url "license.txt"}
   :dependencies [[clj-http "0.7.9"]
                  [enlive "1.1.4"]
+                 [me.raynes/fs "1.4.4"]
                  [org.clojure/clojure "1.5.1"]])
