@@ -1,6 +1,8 @@
 (defproject structural_similarity "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
-  :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.5.1"]])
+  :description "Routines and experiments for comparing the structural similarity (i.e. are these pages generated using the same template) of HTML documents"
+  :url "http://blog.shriphani.com"
+  :license {:name "BSD (2) License"
+            :url "license.txt"}
+  :dependencies [[clj-http "0.7.9"]
+                 [enlive "1.1.4"]
+                 [org.clojure/clojure "1.5.1"]])
