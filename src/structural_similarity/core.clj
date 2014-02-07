@@ -26,3 +26,12 @@
   (let [doc1 (page-body link1)
         doc2 (page-body link2)]
     (similarity doc1 doc2 algorithm)))
+
+(defn similar?
+  [doc1 doc2 algorithm]
+  (cond (= algorithm :tree-edit-distance)
+        (<= 0.8 (similarity doc1 doc2 algorithm))
+
+        :else
+        (throw
+         (UnsupportedOperationException. "Algorithm not implemented"))))
