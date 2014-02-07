@@ -2,7 +2,8 @@
   "Generate a dataset by downloading the webpage"
   (:require [clj-http.client :as client]
             [clojure.java.io :as io])
-  (:use [clojure.pprint :only [pprint]]))
+  (:use [clojure.pprint :only [pprint]])
+  (:import [java.io PushbackReader]))
 
 (def *corpus-file* "resources/corpus.clj")
 
@@ -61,3 +62,10 @@
      *forum-index-similar-page-pairs*
      *forum-leaf-similar-page-pairs*])
    (io/writer *corpus-file*)))
+
+(defn read-dataset
+  []
+  (let [rdr (-> *corpus-file*
+                io/reader
+                PushbackReader.)]
+    (read rdr)))
