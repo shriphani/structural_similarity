@@ -2,6 +2,8 @@
   "Similarity score computed using the Tree Edit Distance algorithm"
   (:require [net.cgrand.enlive-html :as html]))
 
+(def *sim-thresh* 0.8)
+
 (defn html->map
   [page-src]
   (->> page-src
@@ -112,3 +114,6 @@
        (double
         (- 1 (/ similarity-score (+ d1 d2)))))))
 
+(defn similar?
+  [doc1 doc2]
+  (<= *sim-thresh* (similarity doc1 doc2)))
