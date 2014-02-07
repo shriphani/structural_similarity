@@ -109,5 +109,6 @@
            d1 (tree-descendants map1)
            d2 (tree-descendants map2)]
        
-       (- 1 (/ similarity-score (+ d1 d2))))))
+       (double
+        (- 1 (/ similarity-score (+ d1 d2)))))))
 
