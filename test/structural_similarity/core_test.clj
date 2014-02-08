@@ -21,25 +21,41 @@
   (do
     (initialize)
     (let [dataset (dataset/read-dataset)
-          report  (map
-                   (fn [algorithm]
-                     {algorithm
-                      (map
-                       (fn [{name   :name
-                            truth  :similar?
-                            links  :links
-                            corpus :corpus}]
-                         (map
-                          (fn [[ls docs]]
-                            (let [[l1 l2]     ls
-                                  [doc1 doc2] docs]
-                              {:name      name
-                               :link1     l1
-                               :link2     l2
-                               :expected  truth
-                               :computed  (similar? doc1 doc2 algorithm)}))
-                          (map vector links corpus)))
-                       dataset)})
+          report  (reduce
+                   (fn [acc algorithm]
+                     (merge
+                      acc
+                      {algorithm
+                       (reduce
+                        (fn [stuff {name   :name
+                                   truth  :similar?
+                                   links  :links
+                                   corpus :corpus}]
+                          (merge
+                           stuff
+                           {name (map
+                                  (fn [[ls docs]]
+                                    (let [[l1 l2]     ls
+                                          [doc1 doc2] docs]
+                                      {:link1     l1
+                                       :link2     l2
+                                       :expected  truth
+                                       :computed  (similar? doc1
+                                                            doc2
+                                                            algorithm)}))
+                                  (map vector links corpus))}))
+                        {}
+                        dataset)}))
+                   {}
                    *algorithms*)]
-      (write-report report))))
+      (do (write-report report)
+          (doall
+           (doseq [[algorithm result] report]
+             (doseq [[name results] result]
+               (doseq [{l1       :link1
+                        l2       :link2
+                        expected :expected
+                        computed :computed}
+                       results]
+                (is (= expected computed))))))))))
 
