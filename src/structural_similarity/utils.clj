@@ -25,7 +25,14 @@
   (try ($x:node+ ".//a" a-node)
        (catch RuntimeException e [])))
 
+(defn text-nodes
+  [a-node]
+  (try ($x:node+ ".//text()" a-node)
+       (catch RuntimeException e [])))
+
 (defn nodes-to-root
+  "Returns nodes from document root to
+   supplied argument (included)"
   [a-node]
   (drop
    1 ; we are dropping the first ele since it is not html
@@ -35,3 +42,10 @@
                  (fn [x]
                    (.getParentNode x))
                  a-node)))))
+
+(defn node-attr
+  [a-node key]
+  (-> a-node
+      (.getAttributes)
+      (.getNamedItem key)
+      (.getValue)))
