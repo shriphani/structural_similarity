@@ -1,12 +1,8 @@
 (ns structural-similarity.core
   (:require [clj-http.client :as client]
             [structural-similarity.edit-distance :as tree-edit-distance]
-            [structural-similarity.schema :as schema]))
-
-(defn page-body
-  [a-link]
-  (try (-> a-link client/get :body)
-       (catch Exception e nil)))
+            [structural-similarity.schema :as schema]
+            [structural-similarity.utils :as utils]))
 
 (def *algorithms-functions-similarity*
   {:tree-edit-distance tree-edit-distance/similarity
@@ -32,8 +28,8 @@
    and then compute their similarity using the specified
    algorithm:"
   [link1 link2 algorithm]
-  (let [doc1 (page-body link1)
-        doc2 (page-body link2)]
+  (let [doc1 (utils/page-body link1)
+        doc2 (utils/page-body link2)]
     (similarity doc1 doc2 algorithm)))
 
 (defn similar?

@@ -2,49 +2,21 @@
   "Similarity implementation of a web-page
    based on Crescenzi et. al, Data Knowledge and Engineering
    2005"
-  (:require [clojure.set :as clj-set])
-  (:use [clj-xpath.core :only [$x:node+]])
-  (:import [org.htmlcleaner HtmlCleaner DomSerializer CleanerProperties]))
+  (:require [clojure.set :as clj-set]
+            [structural-similarity.utils :as utils])
+  (:use [clj-xpath.core :only [$x:node+]]))
 
 (def *sim-thresh* 0.2)
 
-(defn html->xml
-  "A html document is converted to an XML object"
-  [a-html-doc]
-  (let [cleaner (new HtmlCleaner)
-        
-        cleaner-props (new CleanerProperties)
-        dom-srlzr     (new DomSerializer cleaner-props)
-        
-        cleaned-doc   (.clean cleaner a-html-doc)]
-    
-    (.createDOM dom-srlzr cleaned-doc)))
-
-(defn anchor-nodes
-  [a-node]
-  (try ($x:node+ ".//a" a-node)
-       (catch RuntimeException e [])))
-
-(defn nodes-to-root
-  [a-node]
-  (drop
-   1 ; we are dropping the first ele since it is not html
-   (reverse
-    (take-while identity
-                (iterate
-                 (fn [x]
-                   (.getParentNode x))
-                 a-node)))))
-
 (defn path-to-root
   [a-node]
-  (let [nodes (nodes-to-root a-node)]
+  (let [nodes (utils/nodes-to-root a-node)]
     (map #(.getNodeName %) nodes)))
 
 (defn page-schema
   [a-webpage]
-  (let [page-xml (html->xml a-webpage)
-        anchors  (anchor-nodes page-xml)]
+  (let [page-xml (utils/html->xml a-webpage)
+        anchors  (utils/anchor-nodes page-xml)]
     (map path-to-root anchors)))
 
 (defn schema-similarity
