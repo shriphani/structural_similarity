@@ -1,5 +1,6 @@
 (ns structural-similarity.utils
-  (:require [clj-http.client :as client])
+  (:require [clj-http.client :as client]
+            [clojure.string :as string])
   (:use [clj-xpath.core :only [$x:node+]])
   (:import [org.htmlcleaner HtmlCleaner DomSerializer CleanerProperties]))
 
@@ -45,7 +46,23 @@
 
 (defn node-attr
   [a-node key]
-  (-> a-node
-      (.getAttributes)
-      (.getNamedItem key)
-      (.getValue)))
+  (try
+   (-> a-node
+       (.getAttributes)
+       (.getNamedItem key)
+       (.getValue))
+   (catch NullPointerException e nil)))
+
+(defn remove-trailing-digits
+  [a-string]
+  (let [trailing-digits (re-find #"\d*$" a-string)]
+    (string/replace a-string trailing-digits "")))
+
+(defn fix-class-attribute
+  "We produce a class attribute that matters"
+  [a-class-attr]
+  (and
+   a-class-attr
+   (first
+    (let [potential-classes (string/split a-class-attr #"-|_|\s+")]
+      (map remove-trailing-digits potential-classes)))))
