@@ -70,28 +70,29 @@
 
 (defn test-examples
   [similarity-fn positives negatives]
-  (reverse
-   (sort-by
-    second
-    (map
-     (fn [thresh]
-       (let [positive-tests (count
-                             (filter
-                              identity
-                              (map
-                               (fn [an-example]
-                                 (test-example similarity-fn an-example thresh))
-                               positives)))
+  (first
+   (reverse
+    (sort-by
+     second
+     (map
+      (fn [thresh]
+        (let [positive-tests (count
+                              (filter
+                               identity
+                               (map
+                                (fn [an-example]
+                                  (test-example similarity-fn an-example thresh))
+                                positives)))
 
-             negative-tests (count
-                             (filter
-                              #(not %)
-                              (map
-                               (fn [an-example]
-                                 (test-example similarity-fn an-example thresh))
-                               negatives)))]
-         [thresh (double
-                  (/ (+ positive-tests negative-tests)
-                     (+ (count positives)
-                        (count negatives))))]))
-     (range 0 1 0.1)))))
+              negative-tests (count
+                              (filter
+                               #(not %)
+                               (map
+                                (fn [an-example]
+                                  (test-example similarity-fn an-example thresh))
+                                negatives)))]
+          [thresh (double
+                   (/ (+ positive-tests negative-tests)
+                      (+ (count positives)
+                         (count negatives))))]))
+      (range 0 1 0.1))))))
