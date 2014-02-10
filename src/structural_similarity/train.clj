@@ -53,14 +53,15 @@
 
 (defn load-corpus
   []
-  (let [rdr (PushbackReader.
-             (io/reader "training_corpus.clj"))
-        x   (take-while
-             identity
-             (repeatedly
-              #(try (read rdr)
-                    (catch Exception e nil))))]
-    (count x)))
+  (let [rdr   (PushbackReader.
+               (io/reader "training_corpus.clj"))
+        [p n] (take-while
+               identity
+               (repeatedly
+                #(try (read rdr)
+                      (catch Exception e nil))))]
+    [(partition 2 2 p)
+     (partition 2 2 n)]))
 
 (defn test-example
   [similarity-fn doc-pair thresh]
@@ -71,20 +72,23 @@
   [similarity-fn positives negatives]
   (map
    (fn [thresh]
-    (let [positive-tests  (count
-                           (filter
-                            identity
-                            (map
-                             (fn [an-example]
-                               (test-example similarity-fn an-example thresh))
-                             positives)))
+    (let [positive-tests (count
+                          (filter
+                           identity
+                           (map
+                            (fn [an-example]
+                              (test-example similarity-fn an-example thresh))
+                            positives)))
 
-          negatives-tests (count
-                           (filter
-                            #(not %)
-                            (map
-                             (fn [an-example]
-                               (test-example similarity-fn an-example thresh))
-                             negatives)))]
-      positive-tests))
+          negative-tests (count
+                          (filter
+                           #(not %)
+                           (map
+                            (fn [an-example]
+                              (test-example similarity-fn an-example thresh))
+                            negatives)))]
+      {thresh (double
+               (/ (+ positive-tests negative-tests)
+                  (+ (count positives)
+                     (count negatives))))}))
    (range 0 1 0.1)))
