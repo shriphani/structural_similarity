@@ -2,7 +2,8 @@
   "Training set for determining threshold value"
   (:require [clj-http.client :as client]
             [clojure.java.io :as io])
-  (:use [clojure.pprint :only [pprint]]))
+  (:use [clojure.pprint :only [pprint]])
+  (:import [java.io PushbackReader]))
 
 ;; positive examples: similar documents follow each other
 (def *positive-examples* ["http://www.vbulletin.org/forum/forumdisplay.php?f=262"
@@ -49,3 +50,41 @@
     (do
       (pprint positives (io/writer "training_corpus.clj" :append true))
       (pprint negatives (io/writer "training_corpus.clj" :append true)))))
+
+(defn load-corpus
+  []
+  (let [rdr (PushbackReader.
+             (io/reader "training_corpus.clj"))
+        x   (take-while
+             identity
+             (repeatedly
+              #(try (read rdr)
+                    (catch Exception e nil))))]
+    (count x)))
+
+(defn test-example
+  [similarity-fn doc-pair thresh]
+  (let [[doc1 doc2] doc-pair]
+    (<= thresh (similarity-fn (:body doc1) (:body doc2)))))
+
+(defn test-examples
+  [similarity-fn positives negatives]
+  (map
+   (fn [thresh]
+    (let [positive-tests  (count
+                           (filter
+                            identity
+                            (map
+                             (fn [an-example]
+                               (test-example similarity-fn an-example thresh))
+                             positives)))
+
+          negatives-tests (count
+                           (filter
+                            #(not %)
+                            (map
+                             (fn [an-example]
+                               (test-example similarity-fn an-example thresh))
+                             negatives)))]
+      positive-tests))
+   (range 0 1 0.1)))
