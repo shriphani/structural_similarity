@@ -35,3 +35,20 @@
          [(string/join "/" (cons "/" xpath-components)) node-text]))
      text-nodes)))
 
+(defn char-frequency-representation
+  "Provide a set of xpath and text pairs,
+   this representation returns (xpath, char) pairs"
+  [text-xpaths-coll]
+  (reduce
+   (fn [acc [x text]]
+     (merge-with +' acc {x (count text)}))
+   {}
+   text-xpaths-coll))
+
+(defn similarity-cosine-char-freq
+  [doc1 doc2]
+  (let [r1 (char-frequency-representation
+            (page-text-xpaths doc1))
+        r2 (char-frequency-representation
+            (page-text-xpaths doc2))]
+    (utils/cosine-similarity r1 r2)))

@@ -1,5 +1,6 @@
 (ns structural-similarity.utils
   (:require [clj-http.client :as client]
+            [clojure.set :as clj-set]
             [clojure.string :as string])
   (:use [clj-xpath.core :only [$x:node+]])
   (:import [org.htmlcleaner HtmlCleaner DomSerializer CleanerProperties]))
@@ -66,3 +67,28 @@
    (first
     (let [potential-classes (string/split a-class-attr #"-|_|\s+")]
       (map remove-trailing-digits potential-classes)))))
+
+(defn magnitude
+  [x]
+  (Math/sqrt
+   (apply + (map
+             (fn [[k v]]
+               (* v v))
+             x))))
+
+(defn inner-product
+  [x y]
+  (let [ks (clj-set/union (set (keys x))
+                          (set (keys y)))]
+    (apply + (map
+              (fn [k]
+                (if (and (x k) (y k))
+                  (* (x k) (y k)) 0))
+              ks))))
+
+(defn cosine-similarity
+  [x y]
+  (let [inner-prod (inner-product x y)
+        mod-x      (magnitude x)
+        mod-y      (magnitude y)]
+    (/ inner-prod (* mod-x mod-y))))
