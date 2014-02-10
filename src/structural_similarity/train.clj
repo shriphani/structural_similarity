@@ -16,8 +16,8 @@
                           "http://www.phpbb.com/community/viewforum.php?f=46"
                           "http://www.phpbb.com/community/viewtopic.php?f=65&t=2226331"
                           "http://www.phpbb.com/community/viewtopic.php?f=65&t=1494875"
-                          "https://news.ycombinator.com/news"
-                          "https://news.ycombinator.com/x?fnid=sGdG4aNROGuVUqXl3nZRvT"
+                          "http://www.simplemachines.org/community/index.php?topic=506649.0"
+                          "http://www.simplemachines.org/community/index.php?topic=517205.0"
                           "https://news.ycombinator.com/item?id=7209384"
                           "https://news.ycombinator.com/item?id=7206572"])
 
@@ -30,7 +30,11 @@
                           "http://www.phpbb.com/community/viewforum.php?f=451"
                           "http://www.phpbb.com/community/viewtopic.php?f=461&t=2211266"
                           "http://www.reddit.com/r/formula1/comments/1xioi8/bbc_got_rid_of_garry_anderson/"
-                          "http://www.reddit.com/r/formula1/"])
+                          "http://www.reddit.com/r/formula1/"
+                          "http://www.fmylife.com/"
+                          "http://www.fmylife.com/miscellaneous/21056193"
+                          "http://stackoverflow.com/"
+                          "http://stackoverflow.com/questions/21685316/change-the-color-of-a-label-border-back-to-normal"])
 
 (defn download-corpus
   []
@@ -70,29 +74,28 @@
 
 (defn test-examples
   [similarity-fn positives negatives]
-  (first
-   (reverse
-    (sort-by
-     second
-     (map
-      (fn [thresh]
-        (let [positive-tests (count
-                              (filter
-                               identity
-                               (map
-                                (fn [an-example]
-                                  (test-example similarity-fn an-example thresh))
-                                positives)))
+  (reverse
+   (sort-by
+    second
+    (map
+     (fn [thresh]
+       (let [positive-tests (count
+                             (filter
+                              identity
+                              (map
+                               (fn [an-example]
+                                 (test-example similarity-fn an-example thresh))
+                               positives)))
 
-              negative-tests (count
-                              (filter
-                               #(not %)
-                               (map
-                                (fn [an-example]
-                                  (test-example similarity-fn an-example thresh))
-                                negatives)))]
-          [thresh (double
-                   (/ (+ positive-tests negative-tests)
-                      (+ (count positives)
-                         (count negatives))))]))
-      (range 0 1 0.1))))))
+             negative-tests (count
+                             (filter
+                              #(not %)
+                              (map
+                               (fn [an-example]
+                                 (test-example similarity-fn an-example thresh))
+                               negatives)))]
+         [thresh (double
+                  (/ (+ positive-tests negative-tests)
+                     (+ (count positives)
+                        (count negatives))))]))
+     (range 0 1 0.1)))))
