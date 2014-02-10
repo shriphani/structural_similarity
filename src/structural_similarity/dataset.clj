@@ -12,9 +12,14 @@
    :similar? true
    :links
    [["http://blog.shriphani.com/" "http://blog.shriphani.com/index-2.html"]
-    ["https://rottenindenmark.wordpress.com/" "https://rottenindenmark.wordpress.com/2012/02/"]
+    ["http://rottenindenmark.wordpress.com/" "http://rottenindenmark.wordpress.com/2012/02/"]
     ["http://carsandetc.tumblr.com/" "http://carsandetc.tumblr.com/page/2"]
-    ["http://www.adventuresoncehad.com/" "http://www.adventuresoncehad.com/page/2"]]})
+    ["http://www.adventuresoncehad.com/" "http://www.adventuresoncehad.com/page/2"]
+    ["http://minimsft.blogspot.com/" "http://minimsft.blogspot.com/search?updated-max=2011-04-28T07:52:00-07:00&max-results=11"]
+    ["http://lifeandartintheup.blogspot.com/" "http://lifeandartintheup.blogspot.com/search?updated-max=2011-09-27T03:07:00-07:00&max-results=7"]
+    ["http://paulmullins.wordpress.com/" "http://paulmullins.wordpress.com/page/2/"]
+    ["http://sportsethicist.com/" "http://sportsethicist.com/2013/07/"]
+    ["http://techcrunch.com/" "http://techcrunch.com/page/2/"]]})
 
 (def *forum-index-similar-page-pairs*
   {:name     :forum-index-similar-page-pairs
@@ -27,7 +32,12 @@
     ["http://forums.finalgear.com/fifth-gear/"
      "http://forums.finalgear.com/top-gear-america/"]
     ["http://www.theverge.com/forums"
-     "http://www.theverge.com/forums/all/forum/2"]]})
+     "http://www.theverge.com/forums/all/forum/2"]
+    ["http://www.artofproblemsolving.com/Forum/viewforum.php?f=300&" "http://www.artofproblemsolving.com/Forum/viewforum.php?f=300&start=40"]
+    ["http://forums.asterisk.org/viewforum.php?f=38" "http://forums.asterisk.org/viewforum.php?f=38&start=50"]
+    ["http://www.12allchat.com/forum/viewforum.php?f=143" "http://www.12allchat.com/forum/viewforum.php?f=143&start=75"]
+    ["http://forum.avantbrowser.com/viewforum.php?f=9" "http://forum.avantbrowser.com/viewforum.php?f=9&start=120"]
+    ["http://www.bmwfaq.com/forums/foro-general-bmw.7/" "http://www.bmwfaq.com/forums/foro-general-bmw.7/page-6"]]})
 
 (def *forum-leaf-similar-page-pairs*
   {:name     :forum-leaf-similar-page-pairs
@@ -40,7 +50,33 @@
     ["http://forums.finalgear.com/finalgear-meets/finalgear-lemon-party-texas-march-57401/"
      "http://forums.finalgear.com/problems/nsfw-subforum-57124/"]
     ["http://www.theverge.com/2014/2/6/5387804/looking-for-an-inexpensive-device-with-nfc"
-     "http://www.theverge.com/2014/2/6/5386736/has-there-been-any-indication-of-a-north-american-z1-compact"]]})
+     "http://www.theverge.com/2014/2/6/5386736/has-there-been-any-indication-of-a-north-american-z1-compact"]
+    ["http://www.bmwfaq.com/threads/hoy-he-echo-un-60-a-320-km-conometrado-en-8-segundos.787580/" "http://www.bmwfaq.com/threads/como-dice-el-anuncio-me-he-comprado-un-polo.786907/"]
+    ["http://forum.avantbrowser.com/viewtopic.php?f=9&t=33057" "http://forum.avantbrowser.com/viewtopic.php?f=9&t=32452"]
+    ["http://www.12allchat.com/forum/viewtopic.php?f=143&t=120886" "http://www.12allchat.com/forum/viewtopic.php?f=143&t=120884"]
+    ["http://forums.asterisk.org/viewtopic.php?f=38&t=87887" "http://forums.asterisk.org/viewtopic.php?f=38&t=88051"]
+    ["http://www.artofproblemsolving.com/Forum/viewtopic.php?f=300&t=573898" "http://www.artofproblemsolving.com/Forum/viewtopic.php?f=300&t=23215"]]})
+
+(def *negatives*
+  {:name     :blog-index-similar-page-pairs
+   :similar? false
+   :links
+   [["http://blog.shriphani.com/" "http://blog.shriphani.com/2013/12/18/robust-principal-component-pursuit-background-matrix-recovery/"]
+    ["http://rottenindenmark.wordpress.com/" "http://rottenindenmark.wordpress.com/2012/02/29/what-is-your-boss-buying/"]
+    ["http://carsandetc.tumblr.com/" "http://carsandetc.tumblr.com/post/76160507825/chevy-camaro-z-28"]
+    ["http://www.adventuresoncehad.com/" "http://www.adventuresoncehad.com/post/76190425016"]
+    ["http://minimsft.blogspot.com/" "http://minimsft.blogspot.com/2013/08/steve-ballmer-is-going-to-frickin.html"]
+    ["http://lifeandartintheup.blogspot.com/" "http://lifeandartintheup.blogspot.com/2012/03/wind-off-of-breaking-ice-covered-lake.html"]
+    ["http://paulmullins.wordpress.com/" "http://paulmullins.wordpress.com/2014/02/08/domesticating-dissent-consuming-johnny-cash/"]
+    ["http://sportsethicist.com/" "http://sportsethicist.com/2014/02/05/boycotts-and-the-sochi-olympics/"]
+    ["http://techcrunch.com/" "http://techcrunch.com/2014/02/10/inmobi-launches-interactive-video-ad-platform-to-help-advertisers-boost-sales-on-mobile/"]
+    ["http://www.vbulletin.org/forum/forumdisplay.php?f=263" "http://www.vbulletin.org/forum/showthread.php?t=254967"]
+    ["http://forums.finalgear.com/finalgear-meets/finalgear-lemon-party-texas-march-57401/" "http://forums.finalgear.com/the-site-itself/"]
+    ["http://www.theverge.com/forums" "http://www.theverge.com/2014/2/6/5387804/looking-for-an-inexpensive-device-with-nfc"]
+    ["http://www.12allchat.com/forum/viewtopic.php?f=143&t=120886" "http://www.12allchat.com/forum/viewforum.php?f=143"]
+    ["http://www.bmwfaq.com/forums/foro-general-bmw.7/" "http://www.bmwfaq.com/threads/hoy-he-echo-un-60-a-320-km-conometrado-en-8-segundos.787580/"]
+    ["http://forums.asterisk.org/viewtopic.php?f=38&t=87887" "http://forums.asterisk.org/viewforum.php?f=38&start=50"]
+    ["http://www.reddit.com/" "http://www.reddit.com/r/aww/comments/1xitir/my_neighbor_took_a_picture_of_my_dogs_and_it/"]]})
 
 (defn build-dataset-aux
   [a-dataset]
@@ -60,7 +96,8 @@
     build-dataset-aux
     [*blog-index-similar-page-pairs*
      *forum-index-similar-page-pairs*
-     *forum-leaf-similar-page-pairs*])
+     *forum-leaf-similar-page-pairs*
+     *negatives*])
    (io/writer *corpus-file*)))
 
 (defn read-dataset
