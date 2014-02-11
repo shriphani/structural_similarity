@@ -5,6 +5,8 @@
             [clojure.string :as string])
   (:use [clj-xpath.core :only [$x:node+]]))
 
+(def *sim-thresh* 0.5)
+
 (defn node->xpath-component
   "Supplied a node, we produce an xpath component bruh. Make it
    a text-node pls"
@@ -52,3 +54,8 @@
         r2 (char-frequency-representation
             (page-text-xpaths doc2))]
     (utils/cosine-similarity r1 r2)))
+
+(defn similar?
+  [doc1 doc2]
+  (<= *sim-thresh*
+      (similarity-cosine-char-freq doc1 doc2)))

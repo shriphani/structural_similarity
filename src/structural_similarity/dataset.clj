@@ -58,7 +58,7 @@
     ["http://www.artofproblemsolving.com/Forum/viewtopic.php?f=300&t=573898" "http://www.artofproblemsolving.com/Forum/viewtopic.php?f=300&t=23215"]]})
 
 (def *negatives*
-  {:name     :blog-index-similar-page-pairs
+  {:name     :negatives
    :similar? false
    :links
    [["http://blog.shriphani.com/" "http://blog.shriphani.com/2013/12/18/robust-principal-component-pursuit-background-matrix-recovery/"]
