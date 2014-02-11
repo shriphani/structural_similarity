@@ -1,6 +1,8 @@
 (ns structural-similarity.report
   "Produce a report of a similarity algorithm on a corpus
-   file")
+   file"
+  (:require [clojure.java.io :as io])
+  (:use [clojure.pprint :only [pprint]]))
 
 (defn report [similarity-fn dataset]
   (reduce
@@ -25,12 +27,34 @@
 
 (defn analyze-report
   [a-report]
-  (map
-   (fn [[name ls]]
-     (reduce
-      (fn [acc {_ :link1 _' :link2 e :expected c :computed}]
-        (merge-with + acc (if (= e c) {:success 1} {:fail 1})))
-      {}
-      ls))
-   a-report))
+  (let [per-corpus (map
+                    (fn [[name ls]]
+                      [name (reduce
+                             (fn [acc {_ :link1 _' :link2 e :expected c :computed}]
+                               (merge-with + acc (if (= e c) {:success 1} {:fail 1})))
+                             {}
+                             ls)])
+                    a-report)
+
+        global     (reduce
+                    (fn [acc [name rep]]
+                      (merge-with + acc rep))
+                    {}
+                    per-corpus)]
+    {:global global
+     :accuracy (double
+                (/
+                 (:success global)
+                 (+ (:success global)
+                    (:fail global))))
+     :per-corpus per-corpus}))
+
+(defn dump-report
+  [similarity-fn dataset]
+  (let [rep      (report similarity-fn dataset)
+        analysis (analyze-report rep)]
+    (with-open [wrtr (io/writer "corpus-report.clj")]
+      (do
+        (pprint analysis wrtr)
+        (pprint rep wrtr)))))
 
