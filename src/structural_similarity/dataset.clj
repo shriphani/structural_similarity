@@ -109,6 +109,7 @@
    (map
     build-dataset-aux
     [*blog-index-similar-page-pairs*
+     *blog-leaf-similar-page-pairs*
      *forum-index-similar-page-pairs*
      *forum-leaf-similar-page-pairs*
      *negatives*])
