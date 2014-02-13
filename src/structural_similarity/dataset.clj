@@ -21,6 +21,20 @@
     ["http://sportsethicist.com/" "http://sportsethicist.com/2013/07/"]
     ["http://techcrunch.com/" "http://techcrunch.com/page/2/"]]})
 
+(def *blog-leaf-similar-page-pairs*
+  {:name :blog-leaf-similar-page-pairs
+   :similar? true
+   :links
+   [["http://blog.shriphani.com/2014/01/11/all-it-took-was-an-aha/" "http://blog.shriphani.com/2013/12/26/the-sistine-chapel/"]
+    ["http://rottenindenmark.wordpress.com/2014/02/01/bleg-anyone-been-to-bangladesh/" "http://rottenindenmark.wordpress.com/2014/01/30/five-stories-about-sports-for-people-who-hate-sports/"]
+    ["http://carsandetc.tumblr.com/post/76473121817/a-stunning-camaro-ss-convertible-sandwiched-in" "http://carsandetc.tumblr.com/post/76472905072/chevy-impala-parked-roadside"]
+    ["http://www.adventuresoncehad.com/post/76340631742" "http://www.adventuresoncehad.com/post/74869511763"]
+    ["http://minimsft.blogspot.com/2013/08/steve-ballmer-is-going-to-frickin.html" "http://minimsft.blogspot.com/2012/11/a-microsoft-without-sinofsky.html"]
+    ["http://lifeandartintheup.blogspot.com/2012/03/wind-off-of-breaking-ice-covered-lake.html" "http://lifeandartintheup.blogspot.com/2011/09/hey-fall-you-arrived-early-but-since.html"]
+    ["http://paulmullins.wordpress.com/2014/02/08/domesticating-dissent-consuming-johnny-cash/" "http://paulmullins.wordpress.com/2014/01/27/the-final-choice-the-materiality-of-last-meals/"]
+    ["http://sportsethicist.com/2014/02/10/ethics-of-high-school-athletic-transfers/" "http://sportsethicist.com/2014/02/05/boycotts-and-the-sochi-olympics/"]
+    ["http://techcrunch.com/2014/02/12/white-house-unveils-cybersecurity-plan-for-big-firms-looks-to-silicon-valley-next/" "http://techcrunch.com/2014/02/06/apple-hiring-fitness-physiologists-sleep-experts-on-the-heels-of-recent-iwatch-rumors/?source=gravity"]]})
+
 (def *forum-index-similar-page-pairs*
   {:name     :forum-index-similar-page-pairs
    :similar? true
