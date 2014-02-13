@@ -90,7 +90,16 @@
     ["http://www.12allchat.com/forum/viewtopic.php?f=143&t=120886" "http://www.12allchat.com/forum/viewforum.php?f=143"]
     ["http://www.bmwfaq.com/forums/foro-general-bmw.7/" "http://www.bmwfaq.com/threads/hoy-he-echo-un-60-a-320-km-conometrado-en-8-segundos.787580/"]
     ["http://forums.asterisk.org/viewtopic.php?f=38&t=87887" "http://forums.asterisk.org/viewforum.php?f=38&start=50"]
-    ["http://www.reddit.com/" "http://www.reddit.com/r/aww/comments/1xitir/my_neighbor_took_a_picture_of_my_dogs_and_it/"]]})
+    ["http://www.reddit.com/" "http://www.reddit.com/r/aww/comments/1xitir/my_neighbor_took_a_picture_of_my_dogs_and_it/"]
+    ["http://blog.shriphani.com/" "http://blog.shriphani.com/2014/01/11/all-it-took-was-an-aha/"]
+    ["http://rottenindenmark.wordpress.com/" "http://rottenindenmark.wordpress.com/2014/02/01/bleg-anyone-been-to-bangladesh/"]
+    ["http://carsandetc.tumblr.com/" "http://carsandetc.tumblr.com/post/76473121817/a-stunning-camaro-ss-convertible-sandwiched-in"]
+    ["http://www.adventuresoncehad.com/" "http://www.adventuresoncehad.com/post/76340631742"]
+    ["http://minimsft.blogspot.com/" "http://minimsft.blogspot.com/2013/08/steve-ballmer-is-going-to-frickin.html"]
+    ["http://lifeandartintheup.blogspot.com/" "http://lifeandartintheup.blogspot.com/2012/03/wind-off-of-breaking-ice-covered-lake.html"]
+    ["http://paulmullins.wordpress.com/2014/02/08/domesticating-dissent-consuming-johnny-cash/" "http://paulmullins.wordpress.com/"]
+    ["http://sportsethicist.com/" "http://sportsethicist.com/2014/02/10/ethics-of-high-school-athletic-transfers/"]
+    ["http://techcrunch.com/" "http://techcrunch.com/2014/02/12/white-house-unveils-cybersecurity-plan-for-big-firms-looks-to-silicon-valley-next/"]]})
 
 (defn build-dataset-aux
   [a-dataset]
