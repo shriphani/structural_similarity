@@ -1,9 +1,10 @@
-{:global {:success 38, :fail 5},
- :accuracy 0.8837209302325582,
+{:global {:success 46, :fail 6},
+ :accuracy 0.8846153846153846,
  :per-corpus
  ([:negatives {:fail 2, :success 14}]
   [:forum-leaf-similar-page-pairs {:fail 1, :success 8}]
   [:forum-index-similar-page-pairs {:success 9}]
+  [:blog-leaf-similar-page-pairs {:fail 1, :success 8}]
   [:blog-index-similar-page-pairs {:fail 2, :success 7}])}
 {:negatives
  ({:link1 "http://blog.shriphani.com/",
@@ -167,6 +168,58 @@
    :computed true}
   {:link1 "http://www.bmwfaq.com/forums/foro-general-bmw.7/",
    :link2 "http://www.bmwfaq.com/forums/foro-general-bmw.7/page-6",
+   :expected true,
+   :computed true}),
+ :blog-leaf-similar-page-pairs
+ ({:link1
+   "http://blog.shriphani.com/2014/01/11/all-it-took-was-an-aha/",
+   :link2 "http://blog.shriphani.com/2013/12/26/the-sistine-chapel/",
+   :expected true,
+   :computed true}
+  {:link1
+   "http://rottenindenmark.wordpress.com/2014/02/01/bleg-anyone-been-to-bangladesh/",
+   :link2
+   "http://rottenindenmark.wordpress.com/2014/01/30/five-stories-about-sports-for-people-who-hate-sports/",
+   :expected true,
+   :computed true}
+  {:link1
+   "http://carsandetc.tumblr.com/post/76473121817/a-stunning-camaro-ss-convertible-sandwiched-in",
+   :link2
+   "http://carsandetc.tumblr.com/post/76472905072/chevy-impala-parked-roadside",
+   :expected true,
+   :computed true}
+  {:link1 "http://www.adventuresoncehad.com/post/76340631742",
+   :link2 "http://www.adventuresoncehad.com/post/74869511763",
+   :expected true,
+   :computed true}
+  {:link1
+   "http://minimsft.blogspot.com/2013/08/steve-ballmer-is-going-to-frickin.html",
+   :link2
+   "http://minimsft.blogspot.com/2012/11/a-microsoft-without-sinofsky.html",
+   :expected true,
+   :computed true}
+  {:link1
+   "http://lifeandartintheup.blogspot.com/2012/03/wind-off-of-breaking-ice-covered-lake.html",
+   :link2
+   "http://lifeandartintheup.blogspot.com/2011/09/hey-fall-you-arrived-early-but-since.html",
+   :expected true,
+   :computed true}
+  {:link1
+   "http://paulmullins.wordpress.com/2014/02/08/domesticating-dissent-consuming-johnny-cash/",
+   :link2
+   "http://paulmullins.wordpress.com/2014/01/27/the-final-choice-the-materiality-of-last-meals/",
+   :expected true,
+   :computed true}
+  {:link1
+   "http://sportsethicist.com/2014/02/10/ethics-of-high-school-athletic-transfers/",
+   :link2
+   "http://sportsethicist.com/2014/02/05/boycotts-and-the-sochi-olympics/",
+   :expected true,
+   :computed false}
+  {:link1
+   "http://techcrunch.com/2014/02/12/white-house-unveils-cybersecurity-plan-for-big-firms-looks-to-silicon-valley-next/",
+   :link2
+   "http://techcrunch.com/2014/02/06/apple-hiring-fitness-physiologists-sleep-experts-on-the-heels-of-recent-iwatch-rumors/?source=gravity",
    :expected true,
    :computed true}),
  :blog-index-similar-page-pairs
