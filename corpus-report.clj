@@ -1,7 +1,7 @@
-{:global {:success 46, :fail 6},
- :accuracy 0.8846153846153846,
+{:global {:success 53, :fail 8},
+ :accuracy 0.8688524590163934,
  :per-corpus
- ([:negatives {:fail 2, :success 14}]
+ ([:negatives {:fail 4, :success 21}]
   [:forum-leaf-similar-page-pairs {:fail 1, :success 8}]
   [:forum-index-similar-page-pairs {:success 9}]
   [:blog-leaf-similar-page-pairs {:fail 1, :success 8}]
@@ -82,6 +82,50 @@
   {:link1 "http://www.reddit.com/",
    :link2
    "http://www.reddit.com/r/aww/comments/1xitir/my_neighbor_took_a_picture_of_my_dogs_and_it/",
+   :expected false,
+   :computed false}
+  {:link1 "http://blog.shriphani.com/",
+   :link2
+   "http://blog.shriphani.com/2014/01/11/all-it-took-was-an-aha/",
+   :expected false,
+   :computed false}
+  {:link1 "http://rottenindenmark.wordpress.com/",
+   :link2
+   "http://rottenindenmark.wordpress.com/2014/02/01/bleg-anyone-been-to-bangladesh/",
+   :expected false,
+   :computed false}
+  {:link1 "http://carsandetc.tumblr.com/",
+   :link2
+   "http://carsandetc.tumblr.com/post/76473121817/a-stunning-camaro-ss-convertible-sandwiched-in",
+   :expected false,
+   :computed true}
+  {:link1 "http://www.adventuresoncehad.com/",
+   :link2 "http://www.adventuresoncehad.com/post/76340631742",
+   :expected false,
+   :computed true}
+  {:link1 "http://minimsft.blogspot.com/",
+   :link2
+   "http://minimsft.blogspot.com/2013/08/steve-ballmer-is-going-to-frickin.html",
+   :expected false,
+   :computed false}
+  {:link1 "http://lifeandartintheup.blogspot.com/",
+   :link2
+   "http://lifeandartintheup.blogspot.com/2012/03/wind-off-of-breaking-ice-covered-lake.html",
+   :expected false,
+   :computed false}
+  {:link1
+   "http://paulmullins.wordpress.com/2014/02/08/domesticating-dissent-consuming-johnny-cash/",
+   :link2 "http://paulmullins.wordpress.com/",
+   :expected false,
+   :computed false}
+  {:link1 "http://sportsethicist.com/",
+   :link2
+   "http://sportsethicist.com/2014/02/10/ethics-of-high-school-athletic-transfers/",
+   :expected false,
+   :computed false}
+  {:link1 "http://techcrunch.com/",
+   :link2
+   "http://techcrunch.com/2014/02/12/white-house-unveils-cybersecurity-plan-for-big-firms-looks-to-silicon-valley-next/",
    :expected false,
    :computed false}),
  :forum-leaf-similar-page-pairs
