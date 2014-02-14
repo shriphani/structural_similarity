@@ -4,26 +4,31 @@
   (:require [clojure.java.io :as io])
   (:use [clojure.pprint :only [pprint]]))
 
-(defn report [similarity-fn dataset]
-  (reduce
-   (fn [stuff {name   :name
-              truth  :similar?
-              links  :links
-              corpus :corpus}]
-     (merge
-      stuff
-      {name (map
-             (fn [[ls docs]]
-               (let [[l1 l2]     ls
-                     [doc1 doc2] docs]
-                 {:link1     l1
-                  :link2     l2
-                  :expected  truth
-                  :computed  (similarity-fn doc1
-                                            doc2)}))
-             (map vector links corpus))}))
-   {}
-   dataset))
+(defn report
+  ([similarity-fn dataset]
+     (report similarity-fn dataset nil))
+
+  ([similarity-fn dataset aux-fn]
+     (reduce
+      (fn [stuff {name   :name
+                 truth  :similar?
+                 links  :links
+                 corpus :corpus}]
+        (merge
+         stuff
+         {name (map
+                (fn [[ls docs]]
+                  (let [[l1 l2]     ls
+                        [doc1 doc2] docs]
+                    {:link1     l1
+                     :link2     l2
+                     :expected  truth
+                     :computed  (similarity-fn doc1
+                                               doc2)
+                     :info      (and aux-fn (aux-fn doc1 doc2))}))
+                (map vector links corpus))}))
+      {}
+      dataset)))
 
 (defn analyze-report
   [a-report]
