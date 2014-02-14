@@ -55,11 +55,14 @@
      :per-corpus per-corpus}))
 
 (defn dump-report
-  [similarity-fn dataset]
-  (let [rep      (report similarity-fn dataset)
-        analysis (analyze-report rep)]
-    (with-open [wrtr (io/writer "corpus-report.clj")]
-      (do
-        (pprint analysis wrtr)
-        (pprint rep wrtr)))))
+  ([similarity-fn dataset]
+     (dump-report similarity-fn dataset nil))
+
+  ([similarity-fn dataset aux-fn]
+     (let [rep      (report similarity-fn dataset aux-fn)
+           analysis (analyze-report rep)]
+       (with-open [wrtr (io/writer "corpus-report.clj")]
+         (do
+           (pprint analysis wrtr)
+           (pprint rep wrtr))))))
 

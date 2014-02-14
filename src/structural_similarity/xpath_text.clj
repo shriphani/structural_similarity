@@ -5,7 +5,7 @@
             [clojure.string :as string])
   (:use [clj-xpath.core :only [$x:node+]]))
 
-(def *sim-thresh* 0.5)
+(def *sim-thresh* 0.58)
 
 (defn node->xpath-component
   "Supplied a node, we produce an xpath component bruh. Make it
