@@ -91,4 +91,7 @@
   (let [inner-prod (inner-product x y)
         mod-x      (magnitude x)
         mod-y      (magnitude y)]
-    (/ inner-prod (* mod-x mod-y))))
+    (if (or (zero? mod-x)
+            (zero? mod-y))
+      0
+      (/ inner-prod (* mod-x mod-y)))))
