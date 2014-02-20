@@ -23,19 +23,21 @@
   "Accepts a html document and produces a
    list of XPaths with the associated text"
   [a-doc]
-  (let [xml-document (utils/html->xml a-doc)
-        text-nodes   (utils/text-nodes xml-document)]
-    (map
-     (fn [t]
-       (let [nodes-to-root    (drop-last ; last node is named #text
-                               (utils/nodes-to-root t))
-             xpath-components (concat
-                               (map node->xpath-component
-                                    nodes-to-root)
-                               ["text()"])
-             node-text        (.getNodeValue t)]
-         [(string/join "/" (cons "/" xpath-components)) node-text]))
-     text-nodes)))
+  (and
+   a-doc
+   (let [xml-document (utils/html->xml a-doc)
+         text-nodes   (utils/text-nodes xml-document)]
+     (map
+      (fn [t]
+        (let [nodes-to-root    (drop-last ; last node is named #text
+                                (utils/nodes-to-root t))
+              xpath-components (concat
+                                (map node->xpath-component
+                                     nodes-to-root)
+                                ["text()"])
+              node-text        (.getNodeValue t)]
+          [(string/join "/" (cons "/" xpath-components)) node-text]))
+      text-nodes))))
 
 (defn char-frequency-representation
   "Provide a set of xpath and text pairs,
