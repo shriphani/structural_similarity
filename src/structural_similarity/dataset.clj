@@ -107,7 +107,7 @@
     ["http://www.metafilter.com/" "http://www.metafilter.com/136813/Venezuela-Riots"]]})
 
 (def *qa-similar-index-page-pairs*
-  {:name     :negatives
+  {:name     :qa-similar-index-page-pairs
    :similar? true
    :links
    [["http://stackoverflow.com/questions" "http://stackoverflow.com/questions?page=2&sort=newest"]
