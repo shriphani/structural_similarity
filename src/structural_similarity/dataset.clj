@@ -99,7 +99,23 @@
     ["http://lifeandartintheup.blogspot.com/" "http://lifeandartintheup.blogspot.com/2012/03/wind-off-of-breaking-ice-covered-lake.html"]
     ["http://paulmullins.wordpress.com/2014/02/08/domesticating-dissent-consuming-johnny-cash/" "http://paulmullins.wordpress.com/"]
     ["http://sportsethicist.com/" "http://sportsethicist.com/2014/02/10/ethics-of-high-school-athletic-transfers/"]
-    ["http://techcrunch.com/" "http://techcrunch.com/2014/02/12/white-house-unveils-cybersecurity-plan-for-big-firms-looks-to-silicon-valley-next/"]]})
+    ["http://techcrunch.com/" "http://techcrunch.com/2014/02/12/white-house-unveils-cybersecurity-plan-for-big-firms-looks-to-silicon-valley-next/"]
+    ["http://stackoverflow.com/questions" "http://stackoverflow.com/questions/21898464/windows-7-smartcard-service-hang-after-a-lot-of-scardcontrol"]
+    ["http://mindthebook.com/" "http://mindthebook.com/question/what_is_the_story_of_darryl_flicking"]
+    ["http://askville.amazon.com/Index.do" "http://askville.amazon.com/republican-resistance-legislation-help-create-jobs-based-sound-economics/AnswerViewer.do?requestId=90037687"]
+    ["http://superuser.com/questions" "http://superuser.com/questions/719239/itunes-playback-skipping-on-some-songs"]
+    ["http://www.metafilter.com/" "http://www.metafilter.com/136813/Venezuela-Riots"]]})
+
+(def *qa-similar-index-page-pairs*
+  {:name     :negatives
+   :similar? true
+   :links
+   [["http://stackoverflow.com/questions" "http://stackoverflow.com/questions?page=2&sort=newest"]
+    ["http://mindthebook.com/" "http://mindthebook.com/questions/search/popular/page/2"]
+    ["http://askville.amazon.com/Index.do" "http://askville.amazon.com/Index.do?page=2&filter=AllAnswersOnly"]
+    ["http://superuser.com/questions" "http://superuser.com/questions?page=2&sort=newest"]
+    ["http://www.metafilter.com/" "http://www.metafilter.com/index.cfm?page=2"]]})
+
 
 (defn build-dataset-aux
   [a-dataset]
@@ -121,7 +137,8 @@
      *blog-leaf-similar-page-pairs*
      *forum-index-similar-page-pairs*
      *forum-leaf-similar-page-pairs*
-     *negatives*])
+     *negatives*
+     *qa-similar-index-page-pairs*])
    (io/writer *corpus-file*)))
 
 (defn read-dataset
