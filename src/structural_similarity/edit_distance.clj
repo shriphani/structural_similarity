@@ -2,7 +2,7 @@
   "Similarity score computed using the Tree Edit Distance algorithm"
   (:require [net.cgrand.enlive-html :as html]))
 
-(def *sim-thresh* 0.8)
+(def *sim-thresh* 0.71)
 
 (defn html->map
   [page-src]
@@ -81,8 +81,9 @@
                      (* ins-cost c-j-desc)
                      (* del-cost c-i-desc))
                   (cond
-                   (or (not (-> c-i :content (filter map?)))
-                       (not (-> c-j :content (filter map?))))
+                   (or
+                    (not (-> c-i :content (filter map?)))
+                    (not (-> c-j :content (filter map?))))
                    (+ sub-i sub-cost)
 
                    (or (= (-> c-i :tag) (-> c-j :tag)))
