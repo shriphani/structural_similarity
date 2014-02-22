@@ -98,4 +98,4 @@
                   (/ (+ positive-tests negative-tests)
                      (+ (count positives)
                         (count negatives))))]))
-     (range 0 1 0.1)))))
+     (range 0 1 0.01)))))
