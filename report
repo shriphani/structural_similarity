@@ -7,15 +7,7 @@
 ;; **
 
 ;; **
-;;; Performance of threshold based similarity methods:
-;;; 
-;;; * Tree Edit Distance : 0.8591549295774648 ({:fail 10, :success 61})
-;;; * XPath-Text : 0.8732394366197183 ({:fail 9, :success 62}) -- WINNER
-;;; * Page-schema : 0.2459016393442623 ({:fail 46, :success 15})
-;; **
-
-;; **
-;;; ## Expanation of methods:
+;;; ## Threshold based methods used:
 ;;; 
 ;;; * Tree edit distance:
 ;;; 
@@ -32,3 +24,15 @@
 ;;; Xpath-text algorithm to which we add newer coordinates which compute the number of records as well.
 ;;; 
 ;; **
+
+;; @@
+## Results
+### Threshold based methods:
+
+* Tree Edit Distance : 0.8591549295774648 ({:fail 10, :success 61})
+* XPath-Text : 0.8732394366197183 ({:fail 9, :success 62}) -- WINNER
+* Page-schema : 0.2459016393442623 ({:fail 46, :success 15})
+* XPath-Text-Freq : 0.8732394366197183 ({:fail 9, :success 62})
+
+Clearly adding frequency based info to the model is useless.
+;; @@
