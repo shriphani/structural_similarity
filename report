@@ -1,15 +1,34 @@
 ;; gorilla-repl.fileformat = 1
 
 ;; **
-;;; # Gorilla REPL
+;;; # Structural Similarity Algorithms
 ;;; 
-;;; Welcome to gorilla :-) Shift + enter evaluates code. Poke the question mark (top right) to learn more ...
+;;; Compute whether 2 pages are of the same template (blog indices vs. blog posts and so on)
 ;; **
 
 ;; **
 ;;; Performance of threshold based similarity methods:
 ;;; 
 ;;; * Tree Edit Distance : 0.8591549295774648 ({:fail 10, :success 61})
-;;; * XPath-Text : 0.8732394366197183 ({:fail 9, :success 62})
+;;; * XPath-Text : 0.8732394366197183 ({:fail 9, :success 62}) -- WINNER
 ;;; * Page-schema : 0.2459016393442623 ({:fail 46, :success 15})
+;; **
+
+;; **
+;;; ## Expanation of methods:
+;;; 
+;;; * Tree edit distance:
+;;; 
+;;; Implementation of the RTDM algorithm. See: Structure-Driven Crawler Generation by Example, Vidal et. al. also a threshold based method. Fails because of false positives (we would like to avoid false positives)
+;;; 
+;;; * XPath-Text:
+;;; 
+;;; Generate XPaths using our tag+class approach to text nodes. The coordinates are (XPath, number of characters). Compute a cosine similarity and if greater than a threshold, we're good. (false positives)
+;;; 
+;;; * Page-Schema:
+;;; Crescenzi et al approach where set interestion of paths to a-tags is used for jaccard similarity computation. Also a threshold based method (piss poor perf across the board).
+;;; 
+;;; * XPath-Text-Freq:
+;;; Xpath-text algorithm to which we add newer coordinates which compute the number of records as well.
+;;; 
 ;; **
