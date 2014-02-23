@@ -25,14 +25,55 @@
 ;;; 
 ;; **
 
-;; @@
-## Results
-### Threshold based methods:
+;; **
+;;; ## Classifier based methods:
+;;; 
+;;; * FOCUS based approach:
+;;; The focus paper uses these features:
+;;; 
+;;; from my understanding, there is exactly 1 kind of record picked up. Sounds v stupid but w/e
+;;; 
+;;;   - record-count -> number of records (how is this computed?)
+;;;   - max/avg/var of width -> among all records (how is record computed again)
+;;;   - max/avg/var of anchor text -> ok this is possible - don't understand what among all records means
+;;;   - max/avg/var of text length -> this is also possible - don't understand what among all records means
+;;;   - max/avg/var of leaf nodes -> need record
+;;;   - max/avg/var of links
+;;;   - has link? - 
+;;;   - has timestamp?
+;;;   - time order
+;;;   - record tree similarity
+;;;   - record text sim.
+;;;   - ratio of anchor to text
+;;;   - number of groups
+;;; 
+;;; * What we can take from FOCUS for our XPath based system
+;;; 
+;;;   - number of individual xpaths on p1
+;;;   - number of individual xpaths on p2
+;;;   - |intersection xpaths | / |union of xpaths|
+;;;   - max avg len xpath on p1 and p2 are same?
+;;;   - max avg len link xpath matches?
+;;;   - avg link length p1
+;;;   - avg link length p2
+;;;   - avg text() node length p1
+;;;   - avg text() node length p2
+;;;   - var text() node length p1 and p2
+;;;   - xpath-text sim score
+;;;   - max/ avg freq based stuff
+;;;   
+;;;   Tasks, collect and label data (test + train),
+;;;   
+;; **
 
-* Tree Edit Distance : 0.8591549295774648 ({:fail 10, :success 61})
-* XPath-Text : 0.8732394366197183 ({:fail 9, :success 62}) -- WINNER
-* Page-schema : 0.2459016393442623 ({:fail 46, :success 15})
-* XPath-Text-Freq : 0.8732394366197183 ({:fail 9, :success 62})
-
-Clearly adding frequency based info to the model is useless.
-;; @@
+;; **
+;;; ## Results
+;;; ### Threshold based methods:
+;;; 
+;;; * Tree Edit Distance : 0.8591549295774648 ({:fail 10, :success 61})
+;;; * XPath-Text : 0.8732394366197183 ({:fail 9, :success 62}) -- WINNER
+;;; * Page-schema : 0.2459016393442623 ({:fail 46, :success 15})
+;;; * XPath-Text-Freq : 0.8732394366197183 ({:fail 9, :success 62})
+;;; 
+;;; Clearly adding frequency based info to the model is useless.
+;; **
