@@ -74,79 +74,87 @@
 
 (defn avg-link-length
   [a-page]
-  (let [anchors (-> a-page
-                    utils/html->xml
-                    utils/anchor-nodes)]
-    (/ (apply
-        + (map
-           (fn [a]
-             (count
-              (.getTextContent a)))
-           anchors))
-       (count anchors))))
+  (if-not a-page
+    0
+    (let [anchors (-> a-page
+                      utils/html->xml
+                      utils/anchor-nodes)]
+      (/ (apply
+          + (map
+             (fn [a]
+               (count
+                (.getTextContent a)))
+             anchors))
+         (count anchors)))))
 
 (defn var-link-length
   [a-page]
-  (let [anchors (-> a-page
-                    utils/html->xml
-                    utils/anchor-nodes)
-        mean    (/ (apply
-                    + (map
-                       (fn [a]
-                         (count
-                          (.getTextContent a)))
-                       anchors))
-                   (count anchors))
+  (if-not a-page
+    0
+    (let [anchors (-> a-page
+                      utils/html->xml
+                      utils/anchor-nodes)
+          mean    (/ (apply
+                      + (map
+                         (fn [a]
+                           (count
+                            (.getTextContent a)))
+                         anchors))
+                     (count anchors))
 
-        diffs   (map
-                 (fn [a]
-                   (Math/pow
-                    (- (count
-                        (.getTextContent a))
-                       mean)
-                    2))
-                 anchors)]
-
-    (/ (apply + diffs)
-       (count diffs))))
+          diffs   (map
+                   (fn [a]
+                     (Math/pow
+                      (- (count
+                          (.getTextContent a))
+                         mean)
+                      2))
+                   anchors)]
+      
+      (/ (apply + diffs)
+         (count diffs)))))
 
 (defn avg-text-length
   [a-page]
-  (let [texts (-> a-page
-                  utils/html->xml
-                  utils/text-nodes)]
-    (/ (apply
-        + (map
-           (fn [a]
-             (count
-              (.getTextContent a)))
-           texts))
-       (count texts))))
+  (if-not a-page
+    0
+    (let [texts (-> a-page
+                    utils/html->xml
+                    utils/text-nodes)]
+      (/ (apply
+          + (map
+             (fn [a]
+               (count
+                (.getTextContent a)))
+             texts))
+         (count texts)))))
 
 (defn var-text-length
   [a-page]
-  (let [texts (-> a-page
-                  utils/html->xml
-                  utils/text-nodes)
-        mean    (/ (apply
-                    + (map
-                       (fn [a]
-                         (count
-                          (.getTextContent a)))
-                       texts))
-                   (count texts))
+  (if-not a-page
+    0
+    (let [texts (-> a-page
+                    utils/html->xml
+                    utils/text-nodes)
+          mean    (/ (apply
+                      + (map
+                         (fn [a]
+                           (count
+                            (.getTextContent a)))
+                         texts))
+                     (count texts))
 
-        diffs   (map
-                 (fn [a]
-                   (Math/pow
-                    (- (count
-                        (.getTextContent a))
-                       mean)
-                    2))
-                 texts)]
+          diffs   (map
+                   (fn [a]
+                     (Math/pow
+                      (- (count
+                          (.getTextContent a))
+                         mean)
+                      2))
+                   texts)]
 
-    (/ (apply + diffs)
-       (count diffs))))
+      (/ (apply + diffs)
+         (count diffs)))))
 
 (def text-xpaths xpath-text/page-text-xpaths)
 
