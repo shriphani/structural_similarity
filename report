@@ -64,7 +64,35 @@
 ;;;   
 ;;;   Tasks, collect and label data (test + train),
 ;;;   
+;;;   Here's a features demo
 ;; **
+
+;; @@
+(use 'structural-similarity.classifier :reload)
+(use 'clj-http.client :reload)
+(def page1 (-> "http://blog.shriphani.com" get :body))
+(def page2 (-> "http://blog.shriphani.com/2014/01/11/all-it-took-was-an-aha/" get :body))
+(clojure.pprint/pprint (generate-features page1 page2))
+;; @@
+;; ->
+;;; [1405
+;;;  216
+;;;  0.5512820512820513
+;;;  0
+;;;  0
+;;;  11.35955056179775
+;;;  7.153846153846154
+;;;  15.27829181494662
+;;;  10.66203703703704
+;;;  41.437869822485226
+;;;  117.91566721373559
+;;;  58064.78447537264
+;;;  58064.78447537264]
+;;; 
+;; <-
+;; =>
+;;; nil
+;; <=
 
 ;; **
 ;;; ## Results
@@ -77,3 +105,7 @@
 ;;; 
 ;;; Clearly adding frequency based info to the model is useless.
 ;; **
+
+;; @@
+
+;; @@
