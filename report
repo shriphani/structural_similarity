@@ -61,7 +61,7 @@
 ;;;   - var text() node length p1 and p2
 ;;;   - xpath-text sim score
 ;;;   - max/ avg freq based stuff
-;;;   
+;;;   - maybe add avg frequency as a feature as well?
 ;;;   Tasks, collect and label data (test + train),
 ;;;   
 ;;;   Here's a features demo
@@ -95,6 +95,13 @@
 ;; <=
 
 ;; **
+;;; Next, need to think about generating a large training dataset.
+;;; Let us label 50 blog negatives, 50 blog positives (25 index, 25 post)
+;;; 
+;;; let us then label 50 blog negatives, 50 blog positives
+;; **
+
+;; **
 ;;; ## Results
 ;;; ### Threshold based methods:
 ;;; 
@@ -105,7 +112,3 @@
 ;;; 
 ;;; Clearly adding frequency based info to the model is useless.
 ;; **
-
-;; @@
-
-;; @@
