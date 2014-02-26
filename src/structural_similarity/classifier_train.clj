@@ -1,7 +1,10 @@
 (ns structural-similarity.clasifier-train
   "Aux code to assist with the structural similarity
    training set. This will just download a corpus and
-   build a training set")
+   build a training set"
+  (:require [clj-http.client :as client]))
+
+(def *downloaded* (atom {}))
 
 (def *forum* [["http://forum.zwame.pt/forumdisplay.php?f=34" "http://forum.zwame.pt/showthread.php?t=660406&page=2" true]
               ["http://www.advrider.com/forums/forumdisplay.php?f=2" "http://www.advrider.com/forums/forumdisplay.php?f=2&order=desc&page=2" true]
@@ -27,3 +30,11 @@
               ["http://www.webkinzinsider.com/forum/wi-rules-suggestions-131/how-make-good-posts-become-gifted-327735/" "http://www.webkinzinsider.com/forum/wi-rules-suggestions-131/index3.html" false]
               ["http://www.arizonasportsfans.com/vb/f20/anyone-have-a-vizio-e500-a1-a-204456.html" "http://www.arizonasportsfans.com/vb/f20/" false]
               ["http://www.ultimate-guitar.com/forum/showthread.php?t=1632191" "http://www.ultimate-guitar.com/forum/forumdisplay.php?f=11" false]])
+
+(defn download-and-cache
+  [a-link]
+  (or (@*downloaded* a-link)
+      (let [bd (-> a-link client/get :body)]
+        (do (swap! *downloaded* merge {a-link bd})
+            bd))))
+
