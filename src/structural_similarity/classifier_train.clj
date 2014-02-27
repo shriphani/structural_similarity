@@ -31,6 +31,30 @@
               ["http://www.arizonasportsfans.com/vb/f20/anyone-have-a-vizio-e500-a1-a-204456.html" "http://www.arizonasportsfans.com/vb/f20/" false]
               ["http://www.ultimate-guitar.com/forum/showthread.php?t=1632191" "http://www.ultimate-guitar.com/forum/forumdisplay.php?f=11" false]])
 
+(def *blog* [["https://rottenindenmark.wordpress.com/" "https://rottenindenmark.wordpress.com/category/america-2/" true]
+             ["http://tressiemc.com/" "http://tressiemc.com/page/3/" true]
+             ["http://busymockingbird.com/" "http://busymockingbird.com/page/2/" true]
+             ["http://jonnegroni.com/" "http://jonnegroni.com/page/2/" true]
+             ["http://ptsdandcombat.com/" "http://ptsdandcombat.com/page/2/" true]
+             ["https://wronghands1.wordpress.com/" "https://wronghands1.wordpress.com/2013/05/" true]
+             ["http://blog.quintinlake.com/" "http://blog.quintinlake.com/page/2/" true]
+             ["http://simonkindt.com/" "http://simonkindt.com/page/4/" true]
+             ["http://howthelightgetsinblog.com/" "http://howthelightgetsinblog.com/page/2/" true]
+             ["http://jonsanwell.com/blog/" "http://jonsanwell.com/blog/page/2/" true]
+             ["http://gendermom.wordpress.com/page/2/" "http://gendermom.wordpress.com/" true]
+
+             ["https://rottenindenmark.wordpress.com/" "https://rottenindenmark.wordpress.com/2014/02/13/how-to-write-about-tax-havens/" false]
+             ["http://tressiemc.com/2014/02/24/rationalization-of-higher-education-working-draft/" "http://tressiemc.com/" false]
+             ["http://busymockingbird.com/" "http://busymockingbird.com/2014/02/18/okeeffe-and-the-dinosaurs/" false]
+             ["http://jonnegroni.com/" "http://jonnegroni.com/2014/02/24/the-true-identity-of-andys-mom-in-toy-story-will-blow-your-mind/" false]
+             ["http://ptsdandcombat.com/" "http://ptsdandcombat.com/2014/02/13/therapeutic-war-stories-an-introduction/" false]
+             ["https://wronghands1.wordpress.com/" "https://wronghands1.wordpress.com/2014/02/21/phoney-dependency/" false]
+             ["http://blog.quintinlake.com/2012/12/30/2012-in-30-pictures/" "http://blog.quintinlake.com/" false]
+             ["http://simonkindt.com/2014/01/10/falling-back-after-cai-guo-quiang/" "http://simonkindt.com/" false]
+             ["http://howthelightgetsinblog.com/2013/09/22/new-hope-for-smile-sufferers/" "http://howthelightgetsinblog.com/" false]
+             ["http://jonsanwell.com/blog/" "http://jonsanwell.com/2014/02/24/bangkok-leftovers/" false]
+             ["http://gendermom.wordpress.com/page/2/" "http://gendermom.wordpress.com/2013/10/02/f-you-jerry-springer/" false]])
+
 (defn download-and-cache
   [a-link]
   (or (@*downloaded* a-link)
