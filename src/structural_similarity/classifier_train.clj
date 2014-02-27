@@ -1,4 +1,4 @@
-(ns structural-similarity.clasifier-train
+(ns structural-similarity.classifier-train
   "Aux code to assist with the structural similarity
    training set. This will just download a corpus and
    build a training set"
@@ -64,11 +64,13 @@
             bd))))
 
 (defn download-and-build-data
-  []
-  (doseq [[l1 l2 label] (concat *forum* *blog*)]
-    (let [b1 (download-and-cache l1)
-          b2 (download-and-cache l2)
-          fs (cons
-              (if label 1 -1)
-              (classifier/generate-features b1 b2))]
-      (println (clojure.string/join "," fs)))))
+  [filename]
+  (with-open [wrtr (clojure.java.io/writer filename)]
+    (binding [*out* wrtr]
+     (doseq [[l1 l2 label] (concat *forum* *blog*)]
+       (let [b1 (download-and-cache l1)
+             b2 (download-and-cache l2)
+             fs (cons
+                 (if label 1 -1)
+                 (classifier/generate-features b1 b2))]
+         (println (clojure.string/join " " fs)))))))
