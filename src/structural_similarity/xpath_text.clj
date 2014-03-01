@@ -59,5 +59,7 @@
 
 (defn similar?
   [doc1 doc2]
-  (<= *sim-thresh*
-      (similarity-cosine-char-freq doc1 doc2)))
+  (try (<= *sim-thresh*
+           (similarity-cosine-char-freq doc1
+                                        doc2))
+       (catch org.w3c.dom.DOMException e false)))
