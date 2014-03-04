@@ -8,5 +8,6 @@
                  [enlive "1.1.4"]
                  [me.raynes/fs "1.4.4"]
                  [net.sourceforge.htmlcleaner/htmlcleaner "2.6"]
-                 [org.clojure/clojure "1.5.1"]]
+                 [org.clojure/clojure "1.5.1"]
+                 [svm-clj "0.1.3"]]
   :plugins [[lein-gorilla "0.1.2"]])

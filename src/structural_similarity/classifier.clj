@@ -1,7 +1,8 @@
 (ns structural-similarity.classifier
   (:require [clojure.string :as string]
             [structural-similarity.xpath-text :as xpath-text]
-            [structural-similarity.utils :as utils]))
+            [structural-similarity.utils :as utils])
+  (:use [svm.core]))
 
 (defn page-xpaths-intersection-v-union
   [text-xpaths1 text-xpaths2]
@@ -193,3 +194,14 @@
      (double var-link-length1)
      (double var-text-length1)
      (double var-text-length1)]))
+
+(defn generate-feature-map
+  [page1 page2]
+  (let [features (generate-features page1 page2)]
+    (into {} (map vector
+                  (range 1 (+ 1 (count features)))
+                  features))))
+
+(defn similar?
+  [page1 page2 model]
+  (pos? (predict model (generate-feature-map page1 page2))))
