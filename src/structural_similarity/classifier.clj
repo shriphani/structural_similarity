@@ -181,19 +181,24 @@
         var-text-length1 (var-text-length page1)
         var-text-length2 (var-text-length page2)]
     
-    [(count text-xpaths1)
-     (count text-xpaths2)
+    [(Math/abs
+      (- (count text-xpaths1)
+         (count text-xpaths2)))
      (double intersection-v-union)
      (if same-min 1 0)
      (if same-max 1 0)
-     (double avg-link-length1)
-     (double avg-link-length2)
-     (double avg-text-length1)
-     (double avg-text-length2)
-     (double var-link-length2)
-     (double var-link-length1)
-     (double var-text-length1)
-     (double var-text-length1)]))
+     (Math/abs
+      (- (double avg-link-length1)
+         (double avg-link-length2)))
+     (Math/abs
+      (- (double avg-text-length1)
+         (double avg-text-length2)))
+     (Math/abs
+      (- (double var-link-length2)
+         (double var-link-length1)))
+     (Math/abs
+      (- (double var-text-length1)
+         (double var-text-length1)))]))
 
 (defn generate-feature-map
   [page1 page2]
