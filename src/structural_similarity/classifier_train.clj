@@ -80,5 +80,5 @@
 (defn train
   [training-file dump-filename]
   (let [dataset (read-dataset training-file)
-        model (train-model dataset)]
+        model (train-model dataset :kernel-type (:linear kernel-types))]
     (write-model model dump-filename)))

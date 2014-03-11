@@ -4,6 +4,7 @@
   :license {:name "BSD (2) License"
             :url "license.txt"}
   :dependencies [[clj-http "0.7.9"]
+                 [clj-ml "0.0.3-SNAPSHOT"]
                  [com.github.kyleburton/clj-xpath "1.4.2"]
                  [enlive "1.1.4"]
                  [me.raynes/fs "1.4.4"]

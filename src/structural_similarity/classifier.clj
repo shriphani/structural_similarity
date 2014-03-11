@@ -88,6 +88,20 @@
              anchors))
          (count anchors)))))
 
+(defn avg-link-count
+  [anchor-xpaths]
+  (if-not anchor-xpaths
+    0
+    (let [freqs (reduce
+                 (fn [acc [x t]]
+                   (merge-with +' acc {x 1}))
+                 {}
+                 anchor-xpaths)
+
+          avg (/ (reduce (fn [acc [x n]] (+ n acc)) 0 freqs)
+                 (count freqs))]
+      avg)))
+
 (defn var-link-length
   [a-page]
   (if-not a-page
@@ -159,11 +173,34 @@
 
 (def text-xpaths xpath-text/page-text-xpaths)
 
+(defn anchor-xpaths
+  "Accepts a html document and produces a
+   list of XPaths with the associated text"
+  [a-doc]
+  (and
+   a-doc
+   (let [xml-document (utils/html->xml a-doc)
+         anchor-nodes (utils/anchor-nodes xml-document)]
+     (map
+      (fn [t]
+        (let [nodes-to-root    (drop-last ; last node is named #text
+                                (utils/nodes-to-root t))
+              xpath-components (concat
+                                (map xpath-text/node->xpath-component
+                                     nodes-to-root)
+                                ["text()"])
+              node-text        (.getNodeValue t)]
+          [(string/join "/" (cons "/" xpath-components)) node-text]))
+      anchor-nodes))))
+
 (defn generate-features
   [page1 page2]
   (let [text-xpaths1 (text-xpaths page1)
         text-xpaths2 (text-xpaths page2)
 
+        link-xpaths1 (anchor-xpaths page1)
+        link-xpaths2 (anchor-xpaths page2)
+        
         intersection-v-union (page-xpaths-intersection-v-union text-xpaths1
                                                                text-xpaths2)
 
@@ -179,26 +216,57 @@
         var-link-length2 (var-link-length page2)
         
         var-text-length1 (var-text-length page1)
-        var-text-length2 (var-text-length page2)]
+        var-text-length2 (var-text-length page2)
+
+        link-xpaths1 (anchor-xpaths page1)
+        link-xpaths2 (anchor-xpaths page2)
+        
+        avg-link-count1 (avg-link-count link-xpaths1)
+        avg-link-count2 (avg-link-count link-xpaths2)]
     
-    [(Math/abs
-      (- (count text-xpaths1)
-         (count text-xpaths2)))
+    [(if (< (count text-xpaths1)
+            (count text-xpaths2))
+       (double
+        (/ (count text-xpaths1)
+           (count text-xpaths2)))
+       (double
+        (/ (count text-xpaths2)
+           (count text-xpaths1))))
      (double intersection-v-union)
      (if same-min 1 0)
      (if same-max 1 0)
-     (Math/abs
-      (- (double avg-link-length1)
-         (double avg-link-length2)))
-     (Math/abs
-      (- (double avg-text-length1)
-         (double avg-text-length2)))
-     (Math/abs
-      (- (double var-link-length2)
-         (double var-link-length1)))
-     (Math/abs
-      (- (double var-text-length1)
-         (double var-text-length1)))]))
+     (if (< (double avg-link-length1)
+            (double avg-link-length2))
+       (double
+        (/ (double avg-link-length1)
+           (double avg-link-length2)))
+       (double
+        (/ (double avg-link-length2)
+           (double avg-link-length1))))
+     (if (< (double avg-text-length1)
+            (double avg-text-length2))
+       (double
+        (/ (double avg-text-length1)
+           (double avg-text-length2)))
+       (double
+        (/ (double avg-text-length2)
+           (double avg-text-length1))))
+     (if (< (double var-link-length2)
+            (double var-link-length1))
+       (double
+        (/ (double var-link-length2)
+           (double var-link-length1)))
+       (double
+        (/ (double var-link-length1)
+           (double var-link-length2))))
+     (if (< (double var-text-length1)
+            (double var-text-length2))
+       (double
+        (/ (double var-text-length1)
+           (double var-text-length2)))
+       (double
+        (/ (double var-text-length2)
+           (double var-text-length1))))]))
 
 (defn generate-feature-map
   [page1 page2]
