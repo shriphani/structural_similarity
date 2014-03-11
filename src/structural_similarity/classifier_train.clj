@@ -3,7 +3,8 @@
    training set. This will just download a corpus and
    build a training set"
   (:require [clj-http.client :as client]
-            [structural-similarity.classifier :as classifier])
+            [structural-similarity.classifier :as classifier]
+            [structural-similarity.decision-tree :as dtree])
   (:use [svm.core]))
 
 (def *downloaded* (atom {}))
@@ -68,17 +69,32 @@
   [filename]
   (with-open [wrtr (clojure.java.io/writer filename)]
     (binding [*out* wrtr]
-     (doseq [[l1 l2 label] (concat *forum* *blog*)]
-       (let [b1 (download-and-cache l1)
-             b2 (download-and-cache l2)
-             l  (if label 1 -1)
-             fs
-             (let [features (classifier/generate-features b1 b2)]
-               (map vector (range 1 (+ 1 (count features))) features))]
-         (println (str l " " (clojure.string/join " " (map (fn [[i x]] (str i ":" x)) fs)))))))))
+      (doseq [[l1 l2 label] (concat *forum* *blog*)]
+        (let [b1 (download-and-cache l1)
+              b2 (download-and-cache l2)
+              l  (if label 1 -1)
+              fs
+              (let [features (classifier/generate-features b1 b2)]
+                (map vector (range 1 (+ 1 (count features))) features))]
+          (println (str l " " (clojure.string/join " " (map (fn [[i x]] (str i ":" x)) fs)))))))))
+
+(defn download-and-build-data-2
+  [filename]
+  (with-open [wrtr (clojure.java.io/writer filename)]
+    (binding [*out* wrtr]
+      (doseq [[l1 l2 label] (concat *forum* *blog*)]
+        (let [b1 (download-and-cache l1)
+              b2 (download-and-cache l2)
+              l  (if label 1 -1)
+              fs
+              (let [features (dtree/generate-features b1 b2)]
+                (map vector (range 1 (+ 1 (count features))) features))]
+          (println (str l " " (clojure.string/join " " (map (fn [[i x]] (str x)) fs)))))))))
 
 (defn train
   [training-file dump-filename]
   (let [dataset (read-dataset training-file)
         model (train-model dataset :kernel-type (:linear kernel-types))]
     (write-model model dump-filename)))
+
+
