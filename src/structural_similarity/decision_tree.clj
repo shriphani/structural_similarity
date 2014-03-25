@@ -30,5 +30,5 @@
 (dataset-set-class ds 2)
 (defn similar?
   [doc1 doc2]
-  (similar-classifier? classifier ds doc1 doc2))
+  (= 1 (similar-classifier? classifier ds doc1 doc2)))
 
