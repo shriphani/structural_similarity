@@ -72,30 +72,131 @@
   (let [[doc1 doc2] doc-pair]
     (<= thresh (similarity-fn (:body doc1) (:body doc2)))))
 
+(defn random-take-half
+  ([coll]
+     (random-take-half coll (quot (count coll) 2) []))
+
+  ([coll to-take taken-coll]
+     (cond (zero? to-take)
+           coll
+
+           :else
+           (let [taken (rand-nth coll)
+                 new-coll (filter
+                           #(not= % taken)
+                           coll)]
+             (recur new-coll
+                    (dec to-take)
+                    (cons taken taken-coll))))))
+
 (defn test-examples
   [similarity-fn positives negatives]
-  (reverse
-   (sort-by
-    second
-    (map
-     (fn [thresh]
-       (let [positive-tests (count
-                             (filter
-                              identity
-                              (map
-                               (fn [an-example]
-                                 (test-example similarity-fn an-example thresh))
-                               positives)))
+  (let [positive-train-set (set (random-take-half positives))
+        positive-test-set (filter
+                           (fn [x]
+                             (not (some #{x} positive-train-set)))
+                           positives)
 
-             negative-tests (count
-                             (filter
-                              #(not %)
-                              (map
-                               (fn [an-example]
-                                 (test-example similarity-fn an-example thresh))
-                               negatives)))]
-         [thresh (double
-                  (/ (+ positive-tests negative-tests)
-                     (+ (count positives)
-                        (count negatives))))]))
-     (range 0 1 0.01)))))
+        negative-train-set (set (random-take-half negatives))
+        negative-test-set (filter
+                           (fn [x]
+                             (not (some #{x} negative-train-set)))
+                           negatives)
+        picked-1 (first
+                  (first
+                   (reverse
+                    (sort-by
+                     second
+                     (map
+                      (fn [thresh]
+                        (let [positive-tests (count
+                                              (filter
+                                               identity
+                                               (map
+                                                (fn [an-example]
+                                                  (test-example similarity-fn an-example thresh))
+                                                positive-train-set)))
+                              
+                              negative-tests (count
+                                              (filter
+                                               #(not %)
+                                               (map
+                                                (fn [an-example]
+                                                  (test-example similarity-fn an-example thresh))
+                                                negative-train-set)))]
+                          [thresh (double
+                                   (/ (+ positive-tests negative-tests)
+                                      (+ (count positive-train-set)
+                                         (count negative-train-set))))]))
+                      (range 0 1 0.01))))))
+
+        pos-1 (count
+               (filter
+                identity
+                (map
+                 (fn [an-example]
+                   (test-example similarity-fn an-example picked-1))
+                 positive-test-set)))
+        neg-1 (count
+               (filter
+                identity
+                (map
+                 (fn [an-example]
+                   (test-example similarity-fn an-example picked-1))
+                 negative-test-set)))
+
+        err-1 (double
+               (/ (+ pos-1 neg-1)
+                  (+ (count positive-test-set)
+                     (count negative-test-set))))
+
+        picked-2 (first
+                  (first
+                   (reverse
+                    (sort-by
+                     second
+                     (map
+                      (fn [thresh]
+                        (let [positive-tests (count
+                                              (filter
+                                               identity
+                                               (map
+                                                (fn [an-example]
+                                                  (test-example similarity-fn an-example thresh))
+                                                positive-test-set)))
+                              
+                              negative-tests (count
+                                              (filter
+                                               #(not %)
+                                               (map
+                                                (fn [an-example]
+                                                  (test-example similarity-fn an-example thresh))
+                                                negative-test-set)))]
+                          [thresh (double
+                                   (/ (+ positive-tests negative-tests)
+                                      (+ (count positive-test-set)
+                                         (count negative-test-set))))]))
+                      (range 0 1 0.01))))))
+
+        pos-2 (count
+               (filter
+                identity
+                (map
+                 (fn [an-example]
+                   (test-example similarity-fn an-example picked-2))
+                 positive-train-set)))
+        neg-2 (count
+               (filter
+                identity
+                (map
+                 (fn [an-example]
+                   (test-example similarity-fn an-example picked-2))
+                 negative-train-set)))
+
+        err-2 (double
+               (/ (+ pos-1 neg-1)
+                  (+ (count positive-train-set)
+                     (count negative-train-set))))]
+
+    [[picked-1 err-1]
+     [picked-2 err-2]]))
