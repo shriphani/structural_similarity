@@ -14,6 +14,10 @@
   "A html document is converted to an XML object"
   [a-html-doc]
   (let [cleaner (new HtmlCleaner)
+
+        props   (.getProperties cleaner)
+        _       (.setPruneTags props "script, style")
+        _       (.setOmitComments props true)
         
         cleaner-props (new CleanerProperties)
         dom-srlzr     (new DomSerializer cleaner-props)
