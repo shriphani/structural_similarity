@@ -57,6 +57,15 @@
             (page-text-xpaths doc2))]
     (utils/cosine-similarity r1 r2)))
 
+(defn similarity-xpaths
+  [r1 r2]
+  (utils/cosine-similarity r1 r2))
+
+(defn similar-xpaths?
+  [r1 r2]
+  (<= *sim-thresh*
+      (similarity-xpaths r1 r2)))
+
 (defn similar?
   [doc1 doc2]
   (try (<= *sim-thresh*
